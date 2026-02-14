@@ -5,36 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¿Quieres ser mi San Valentín?</title>
     <style>
+        /* Fondo con degradado y animación */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #ffeef2;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
             font-family: 'Arial', sans-serif;
             text-align: center;
+            overflow: hidden; /* Evita que los corazones creen barras de scroll */
         }
+
+        /* Corazones flotantes de fondo */
+        .heart-bg {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 20px;
+            z-index: 0;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
         .container {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 90%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            max-width: 85%;
+            z-index: 10;
+            border: 3px solid #ff4d6d;
         }
-        h1 { color: #d63384; font-size: 2rem; }
-        .buttons { margin-top: 20px; position: relative; height: 60px; }
+
+        h1 { 
+            color: #d63384; 
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .buttons { 
+            margin-top: 30px; 
+            position: relative; 
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
         button {
-            padding: 12px 25px;
+            padding: 15px 30px;
             font-size: 1.2rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: bold;
         }
-        #yesBtn { background-color: #ff4d6d; color: white; margin-right: 10px; }
-        #noBtn { background-color: #adb5bd; color: white; position: absolute; }
-        img { width: 150px; margin-bottom: 20px; }
+
+        #yesBtn { 
+            background-color: #ff4d6d; 
+            color: white; 
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        #yesBtn:hover { transform: scale(1.1); }
+
+        #noBtn { 
+            background-color: #adb5bd; 
+            color: white; 
+            z-index: 999;
+        }
+
+        img { 
+            width: 180px; 
+            margin-bottom: 10px;
+            border-radius: 15px;
+        }
     </style>
 </head>
 <body>
@@ -49,23 +100,39 @@
     </div>
 
     <script>
+        // Crear corazones flotantes automáticamente
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 300);
+
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
 
-        // Hace que el botón "No" se escape (Efecto divertido)
-        noBtn.addEventListener('mouseover', moveButton);
-        noBtn.addEventListener('touchstart', moveButton);
-
-        function moveButton() {
+        // Lógica del botón que escapa
+        const moveButton = () => {
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = 'fixed';
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
-            noBtn.style.position = 'fixed';
-        }
+        };
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Evita clics accidentales en móvil
+            moveButton();
+        });
 
         yesBtn.addEventListener('click', () => {
-            alert('¡Sabía que dirías que sí! 🥰 Nos vemos pronto.');
+            alert('¡Siii! Sabía que aceptarías 🥰 Nos vemos mas tardecito .');
             location.href = "https://wa.me/+51922174374?text=¡Acepto+ser+tu+San+Valentin!+<3"; 
         });
     </script>
