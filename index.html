@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi San Valentín?</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffeef2;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 90%;
+        }
+        h1 { color: #d63384; font-size: 2rem; }
+        .buttons { margin-top: 20px; position: relative; height: 60px; }
+        button {
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #yesBtn { background-color: #ff4d6d; color: white; margin-right: 10px; }
+        #noBtn { background-color: #adb5bd; color: white; position: absolute; }
+        img { width: 150px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYxcGZueWp4eXJ5eXJ5eXJ5eXJ5eXJ5eXJ5eXJ5eXJ5ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute Cat">
+        <h1>¿Quieres ser mi San Valentín? ❤️</h1>
+        <div class="buttons">
+            <button id="yesBtn">¡SÍ!</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+
+        // Hace que el botón "No" se escape (Efecto divertido)
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', moveButton);
+
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            noBtn.style.position = 'fixed';
+        }
+
+        yesBtn.addEventListener('click', () => {
+            alert('¡Sabía que dirías que sí! 🥰 Nos vemos pronto.');
+            location.href = "https://wa.me/+51922174374?text=¡Acepto+ser+tu+San+Valentin!+❤️"; 
+        });
+    </script>
+</body>
+</html>
